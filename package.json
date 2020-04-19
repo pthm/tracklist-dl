@@ -1,6 +1,6 @@
 {
-  "name": "zippy-dl",
-  "productName": "zippy-dl",
+  "name": "tracklist-dl",
+  "productName": "tracklist-dl",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -24,7 +24,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "zippy_dl"
+            "name": "tracklist_dl"
           }
         },
         {
