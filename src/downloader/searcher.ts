@@ -12,6 +12,7 @@ export interface ITrackSearchResult {
 export abstract class SearchProvider {
   abstract name: string
   abstract async search(title: string): Promise<ITrackSearchResult[]>
+  abstract async init(): Promise<void>
 }
 
 function checkSimilarity(string1: string, string2: string) {
@@ -38,8 +39,15 @@ export class Searcher {
 
   providers: SearchProvider[] = []
 
-  registerProvider(provider: SearchProvider) {
-    this.providers.push(provider)
+  async registerProvider(provider: SearchProvider) {
+    try {
+      await provider.init()
+      this.providers.push(provider)
+      Logger.log(`Loaded search provider ${provider.name}`)
+    } catch (e) {
+      Logger.log(`Could not load search provider ${provider.name}`)
+      Logger.log(e)
+    }
   }
 
   async search(title: string) : Promise<ITrackSearchResult[]> {

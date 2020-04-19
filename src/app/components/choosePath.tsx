@@ -6,13 +6,12 @@ import { observer } from 'mobx-react';
 const { ipcRenderer } = window;
 
 const chooseDownloadPathStyles = css`
-  flex: 0;
+  grid-area: 1 / 1 / 2 / 13;
+  display: flex;
   padding: 5px 10px;
   height: 30px;
   background: #242424;
   color: #CCCCCC;
-  display: flex;
-  flex-direction: row;
   align-items: center;
 `
 
@@ -28,6 +27,7 @@ const inputStyle = css`
   margin-right: 5px;
   padding: 2px;
   color: #CCCCCC;
+  height: 19px;
 `
 
 const buttonStyle = css`
@@ -35,6 +35,11 @@ const buttonStyle = css`
   background: #2E2E2F;
   color: #CCCCCC;
   flex: 1;
+  height: 25px;
+  :hover {
+    color: white;
+    background: #1F8AD2;
+  }
 `
 
 export const ChooseDownloadPath: FunctionComponent = observer(() => {
@@ -45,7 +50,7 @@ export const ChooseDownloadPath: FunctionComponent = observer(() => {
 
   return (
     <div className={chooseDownloadPathStyles}>
-      <div className={labelStyle}>Download Path:</div>
+      <div className={labelStyle}>Download Path</div>
       <input className={inputStyle} type="text" readOnly={true} value={state.downloadPath.downloadPath}></input>
       <button className={buttonStyle} onClick={() => {
         ipcRenderer.invoke('APP_CHOOSE_DOWNLOAD_PATH');

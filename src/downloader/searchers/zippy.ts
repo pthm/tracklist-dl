@@ -5,6 +5,7 @@ import async from 'async';
 import { BrowserWindow, ipcMain } from "electron";
 import path from 'path';
 import { Logger } from "../../logger";
+import got from 'got';
 
 interface IZippySearchResult {
   title: string
@@ -19,6 +20,17 @@ interface IZippyDownloadURL {
 export class ZippySearcher extends SearchProvider {
 
   name: string = 'zippysharesearch.info'
+
+  async init() {
+    try {
+      const response = await got.get("https://zippyshare.com")
+      if (response.statusCode != 200) {
+        throw new Error("Can't connect to Zippyshare, try using a VPN")
+      }
+    } catch(e) {
+      throw new Error("Can't connect to Zippyshare, try using a VPN")
+    }
+  }
 
   async search(title: string): Promise<ITrackSearchResult[]> {
     const zippySearchResults = await this.getZippySearchResults(title)

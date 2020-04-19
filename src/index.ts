@@ -12,8 +12,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 let win: BrowserWindow
+const searcher = new Searcher()
 
-const createWindow = () => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: "tracklist-dl",
@@ -31,11 +32,14 @@ const createWindow = () => {
   Logger.setWindow(mainWindow.webContents)
 
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  await mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
+  const zippyProvider = new ZippySearcher()
+  searcher.registerProvider(zippyProvider)
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -75,12 +79,6 @@ ipcMain.handle('APP_CHOOSE_DOWNLOAD_PATH', async (event) => {
 });
 
 ipcMain.handle('APP_DOWNLOAD_TRACKLIST', async (event, tracklist, path) => {
-  const searcher = new Searcher()
-  console.log(path);
-
-  const zippyProvider = new ZippySearcher()
-  searcher.registerProvider(zippyProvider)
-
   const tracks = tracklist.split('\n')
   for (const track of tracks) {
     const search = new Search(searcher)
@@ -88,6 +86,6 @@ ipcMain.handle('APP_DOWNLOAD_TRACKLIST', async (event, tracklist, path) => {
 
     const downloader = new Downloader(results, path)
     await downloader.download()
-    Logger.log("Complete! :)")
   }
+  Logger.log("Complete! :)")
 });
