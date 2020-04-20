@@ -1,3 +1,4 @@
+require('dotenv').config()
 import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 import path from 'path';
@@ -8,7 +9,7 @@ import { Downloader } from './downloader/downloader';
 
 require('update-electron-app')({
   repo: "pthm/tracklist-dl",
-  logger: require('electron-log')
+  logger: Logger
 })
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
