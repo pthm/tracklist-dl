@@ -22,6 +22,7 @@ class GlobalLogger {
     try {
       this.win.send("APP_APPEND_TO_LOG", args.join(' '));
     } catch (e) {
+      console.log(e);
       this.queue.push(args)
     }
   }

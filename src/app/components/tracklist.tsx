@@ -104,7 +104,7 @@ export const Tracklist: FunctionComponent = observer(() => {
   }
 
   const removeSquareBrackets = () => {
-    replaceInLines(/\[.+\]/g)
+    replaceInLines(/\[[^\]]*\]/g)
   }
 
   return (
@@ -112,7 +112,7 @@ export const Tracklist: FunctionComponent = observer(() => {
       <div className={tracklistContainerStyles}>
         <div className={inputContainerStyles}>
           <textarea className={tracklistStyles} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-            state.tracklist.setTracklist(event.target.value.split('\n').map(l => l.trim()).join('\n'))
+            state.tracklist.setTracklist(event.target.value.split('\n').map(l => l.trim()).filter(l => l != '').join('\n'))
           }} value={state.tracklist.tracklist} placeholder="Paste your tracklist here"></textarea>
         </div>
         <div className={controlsContainerStyles}>
