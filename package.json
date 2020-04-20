@@ -1,8 +1,8 @@
 {
   "name": "tracklist-dl",
   "productName": "tracklist-dl",
-  "version": "1.0.1",
-  "description": "My Electron application description",
+  "version": "1.2.0",
+  "description": "downloads tracklists",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -15,6 +15,10 @@
   "author": {
     "name": "Patt-tom McDonnell",
     "email": "contact@mcdonnell.pt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pthm/tracklist-dl.git"
   },
   "license": "MIT",
   "config": {
@@ -115,6 +119,7 @@
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.3",
     "download": "^8.0.0",
+    "electron-log": "^4.1.1",
     "electron-squirrel-startup": "^1.0.0",
     "emotion": "^10.0.27",
     "got": "^10.7.0",

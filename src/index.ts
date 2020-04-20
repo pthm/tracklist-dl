@@ -6,7 +6,10 @@ import { ZippySearcher } from './downloader/searchers/zippy';
 import {Logger} from './logger';
 import { Downloader } from './downloader/downloader';
 
-require('update-electron-app')()
+require('update-electron-app')({
+  repo: "pthm/tracklist-dl",
+  logger: require('electron-log')
+})
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
