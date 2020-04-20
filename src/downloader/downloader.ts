@@ -1,5 +1,8 @@
-import downloadFile from 'download'
+import dl from 'download-file'
 import { Logger } from '../logger';
+import utils from 'util'
+
+const dlProm = utils.promisify(dl)
 
 interface ITrackDownload {
   downloadUrl: string
@@ -24,13 +27,15 @@ export class Downloader {
         Logger.log(`\tAttempting to download ${download.title}`)
         console.log(`Downloading ${download.title}`);
         try {
-          await downloadFile(download.downloadUrl, this.downloadPath, {
-            filename: download.fileName,
+          await dlProm(download.downloadUrl, {
+            directory: this.downloadPath,
+            filename: download.fileName
           })
           Logger.log(`\tDownload for ${download.downloadUrl} succeed`)
           Logger.log(`\tDownload complete!`)
           break;
         } catch (e) {
+          Logger.error(e)
           Logger.log(`\tDownload for ${download.downloadUrl} failed, trying next result`)
         }
       } else {
