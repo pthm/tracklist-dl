@@ -115,7 +115,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.3",
     "download": "^8.0.0",
